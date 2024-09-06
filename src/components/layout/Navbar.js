@@ -1,20 +1,32 @@
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import Container from './Container';
-import styles from './Navbar.module.css';
-import logo from '../../img/costs_logo.png';
+import Container from "./Container";
+import styles from "./Navbar.module.css";
+import logo from "../../img/costs_logo.png";
 
 function Navbar() {
-    return (
-      <div>
-        <nav>
-        <Link to="/">Home</Link>
-        <Link to="/contact">Contato</Link>
-        <Link to="/company">Empresa</Link>
-        <Link to="/newproject">Novo Projeto</Link>
+  return (
+    <div className={styles.navbar}>
+      <nav>
+        <Container>
+          <Link to="/">
+            <img src={logo} alt="Costs"></img>
+          </Link>
+          <ul className={styles.list}>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contato</Link>
+            </li>
+            <li>
+              <Link to="/company">Empresa</Link>
+            </li>
+          </ul>
+        </Container>
       </nav>
-      </div>
-    );
-  }
-  
-  export default Navbar;
+    </div>
+  );
+}
+
+export default Navbar;
