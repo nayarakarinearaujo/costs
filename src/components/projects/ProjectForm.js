@@ -1,9 +1,10 @@
-
 import React from 'react'
+
+import styles from './ProjectForm.module.css'
 
 function ProjectForm() {
     return (
-        <form>
+        <form className={styles.form}>
             <div>
                 <input type='text' placeholder='Insira o nome do projeto' />
             </div>
@@ -12,7 +13,7 @@ function ProjectForm() {
             </div>
             <div>
                 <select name='category_id'>
-                    <option disabled >Selecione a categoria</option>
+                    <option disabled selected >Selecione a categoria</option>
                 </select>
             </div>
 
