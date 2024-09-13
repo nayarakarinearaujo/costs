@@ -1,14 +1,13 @@
-import { useHistory } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import ProjectForm from '../projects/ProjectForm';
 import styles from './NewProject.module.css';
 
 function NewProject() {
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     function createPost(project) {
-        // Inicializar custo e serviços
+
         project.cost = 0;
         project.services = [];
 
@@ -17,13 +16,12 @@ function NewProject() {
             headers: {
                 'Content-Type': "application/json"
             },
-            body: JSON.stringify(project)
+            body: JSON.stringify(project),
         })
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            // Redirecionar para outra página após a criação do projeto, se necessário
-            history.push('/projects');
+            navigate('/projects');
         })
         .catch(err => console.log(err));
     }
@@ -32,7 +30,7 @@ function NewProject() {
         <div className={styles.newproject_container}>
             <h1>Criar Projeto</h1>
             <p>Crie seu projeto para depois adicionar os serviços</p>
-            <ProjectForm btnText="Criar Projeto" handleSubmit={createPost} />
+            <ProjectForm handleSubmit={createPost} btnText="Criar Projeto" />
         </div>
     );
 }
