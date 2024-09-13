@@ -1,6 +1,5 @@
-import React from 'react'
-
-import styles from './Select.module.css'
+import React from 'react';
+import styles from './Select.module.css';
 
 function Select({ text, name, options, handleOnChange, value }) {
     return (
@@ -10,17 +9,21 @@ function Select({ text, name, options, handleOnChange, value }) {
                 name={name}
                 id={name}
                 onChange={handleOnChange}
-                value={value || ''}
+                value={value || ''}  // Certificando-se que o valor do select seja atualizado
             >
-                <option>Selecione uma opção</option>
-                {options.map((option) => (
-                    <option
-                        value={option.id}
-                        key={option.id}>{option.name}</option>
-                ))}
+                <option value="">Selecione uma opção</option>
+                {options && options.length > 0 ? (
+                    options.map((option) => (
+                        <option value={option.id} key={option.id}>
+                            {option.name}
+                        </option>
+                    ))
+                ) : (
+                    <option disabled>Carregando categorias...</option> // Exibe somente se as opções estiverem vazias
+                )}
             </select>
         </div>
-    )
+    );
 }
 
-export default Select
+export default Select;

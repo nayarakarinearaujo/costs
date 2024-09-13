@@ -15,14 +15,15 @@ function ProjectForm({ handleSubmit, btnText, projectData }) {
         fetch("http://localhost:5000/categories", {
             method: "GET",
             headers: {
-                'Content-Type': 'application/json', // Corrigido 'aplication' para 'application'
+                'Content-Type': 'application/json',
             },
         })
-            .then((resp) => resp.json())
-            .then((data) => {
-                setCategories(data);
-            })
-            .catch((err) => console.log(err));
+        .then((resp) => resp.json())
+        .then((data) => {
+            console.log(data);  // Adicionando log para verificar o retorno da API
+            setCategories(data);
+        })
+        .catch((err) => console.log(err));
     }, []);
 
     const submit = (e) => {
@@ -31,18 +32,18 @@ function ProjectForm({ handleSubmit, btnText, projectData }) {
     };
 
     function handleChange(e) {
-        setProject({ ...project, [e.target.name]: e.target.value }); // Corrigido o erro de sintaxe
+        setProject({ ...project, [e.target.name]: e.target.value });
     }
 
-    
     function handleCategory(e) {
-        setProject({ 
-            ...project, 
+        const selectedCategory = e.target.options[e.target.selectedIndex].text; // Para pegar o texto da categoria
+        setProject({
+            ...project,
             category: {
                 id: e.target.value,
-                name: e.target.options[e.target.selectIndex]
-        } 
-    });
+                name: selectedCategory
+            }
+        });
     }
 
     return (
@@ -54,6 +55,7 @@ function ProjectForm({ handleSubmit, btnText, projectData }) {
                     name="name"
                     placeholder="Insira o nome do projeto"
                     handleOnChange={handleChange}
+                    value={project.name || ''}
                 />
             </div>
             <div>
@@ -63,6 +65,7 @@ function ProjectForm({ handleSubmit, btnText, projectData }) {
                     name="budget"
                     placeholder="Insira o orçamento total"
                     handleOnChange={handleChange}
+                    value={project.budget || ''}
                 />
             </div>
             <div>
@@ -71,7 +74,7 @@ function ProjectForm({ handleSubmit, btnText, projectData }) {
                     text="Selecione a categoria"
                     options={categories}
                     handleOnChange={handleCategory}
-
+                    value={project.category ? project.category.id : ''} 
                 />
             </div>
             <div>
