@@ -1,15 +1,34 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import React from 'react'
-import styles from './Message.modulo.css'
+import styles from './Message.module.css';
 
 function Message({ type, msg }) {
 
     const [visible, setVisible] = useState(false)
 
+    useEffect(() => {
+        if (!msg) {
+            setVisible(false)
+            return
+        }
+
+        setVisible(true)
+
+        const timer = setTimeout(() => {
+            setVisible(false)
+        }, 5000)
+
+        return () => clearTimeout(timer)
+
+    }, [msg])
+
     return (
-        <div
-            className={`${styles.message} 
-    ${styles[type]}`}>{msg}</div>
+        <>
+            {visible && (
+                <div
+                    className={`${styles.message} ${styles[type]}`}>{msg}</div>
+            )}
+        </>
     )
 }
 
